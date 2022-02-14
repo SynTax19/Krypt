@@ -1,29 +1,34 @@
 import React, { useEffect, useState } from "react";
 import millify from "millify";
 import { Link } from "react-router-dom";
-import { Card, Row, Col } from "antd";
+import { Card, Row, Col, Input } from "antd";
 import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import Divider from "@mui/material/Divider";
 
 import { useGetCryptosQuery } from "../services/cryptoApi";
+import Loader from "./Loader";
 
 const Cryptocurrencies = ({ simplified }) => {
   const count = simplified ? 10 : 100;
   const { data: cryptosList, isFetching } = useGetCryptosQuery(count);
-  const [cryptos, setCryptos] = useState([]);
+  const [cryptos, setCryptos] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   // console.log(cryptos);
   //console.log(isFetching);
 
   useEffect(() => {
     setCryptos(cryptosList?.data?.coins);
-    const filterData = cryptosList?.data?.coins.filter((coin) =>
-      coin.name.toLowerCase().includes(searchTerm.toLowerCase())
+
+    const filteredData = cryptosList?.data?.coins.filter((item) =>
+      item.name.toLowerCase().includes(searchTerm)
     );
-    setCryptos(filterData);
+
+    setCryptos(filteredData);
   }, [cryptosList, searchTerm]);
-  if (isFetching) return "Loading . . . . . . . .";
+
+  if (isFetching) return <Loader />;
+
   return (
     <>
       {!simplified && (
@@ -64,7 +69,7 @@ const Cryptocurrencies = ({ simplified }) => {
             <Link key={currency.uuid} to={`/crypto/${currency.uuid}`}>
               <Card
                 style={{ backgroundColor: "#d6fffe" }}
-                title={<b>{`${currency.rank}. ${currency.name}`} </b>}
+                title={<b>{`${currency.rank}. ${currency.name}`}</b>}
                 extra={<img className="crypto-image" src={currency.iconUrl} />}
                 hoverable
               >
@@ -72,9 +77,7 @@ const Cryptocurrencies = ({ simplified }) => {
                   variant="middle"
                   style={{ marginTop: "-25px", marginBottom: "15px" }}
                 />
-                <p>
-                  Price: <b>$ {millify(currency.price)}</b>{" "}
-                </p>
+                <p>Price: $ {millify(currency.price)}</p>
                 <p>Market Cap: {millify(currency.marketCap)}</p>
                 <p>Daily Change: {currency.change}%</p>
               </Card>
