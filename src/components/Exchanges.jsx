@@ -1,10 +1,10 @@
-import React from 'react';
-import millify from 'millify';
-import { Collapse, Row, Col, Typography, Avatar } from 'antd';
-import HTMLReactParser from 'html-react-parser';
+import React from "react";
+import millify from "millify";
+import { Collapse, Row, Col, Typography, Avatar } from "antd";
+import HTMLReactParser from "html-react-parser";
 
-import { useGetExchangesQuery } from '../services/cryptoApi';
-import Loader from './Loader';
+import { useGetExchangesQuery } from "../services/cryptoApi";
+import Loader from "./Loader";
 
 const { Text } = Typography;
 const { Panel } = Collapse;
@@ -12,18 +12,28 @@ const { Panel } = Collapse;
 const Exchanges = () => {
   const { data, isFetching } = useGetExchangesQuery();
   const exchangesList = data?.data?.exchanges;
- // Note: To access this endpoint you need premium plan
+  // Note: To access this endpoint you need premium plan
   if (isFetching) return <Loader />;
 
   return (
     <>
-      <Row>
+      {/* <Row>
         <Col span={6}>Exchanges</Col>
         <Col span={6}>24h Trade Volume</Col>
         <Col span={6}>Markets</Col>
         <Col span={6}>Change</Col>
-      </Row>
-      <Row>
+      </Row> */}
+      <h1
+        className="premium"
+        style={{ display: "flex", justifyContent: "center", fontSize: "32px" }}
+      >
+        {" "}
+        SORRY FOR THE INCONVINIENCE !
+      </h1>
+      <Row style={{ justifyContent: "center", fontSize: "16px" }}>
+        <br />
+
+        <p>Subscribe to Premium API to Avail this Feature of Exchanges</p>
         {/* {exchangesList.map((exchange) => (
           <Col span={24}>
             <Collapse>
