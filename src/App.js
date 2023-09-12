@@ -50,7 +50,7 @@ const App = () => (
           All Rights Reserved.
           <br />
           Designed and Crafted by{" "}
-          <a href="https://github.com/SynTax19"> SynTax19 </a>
+          <a href="https://github.com/TanuShree2922/Krypto"> TanuShree </a>
         </Typography.Title>
         <Space>
           <Link to="/">Home</Link>
